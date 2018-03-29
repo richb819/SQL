@@ -1,0 +1,132 @@
+SELECT first_name, last_name
+FROM actor
+
+SELECT UPPER(CONCAT(first_name, last_name)) AS actor_name
+FROM actor;
+
+SELECT actor_id, first_name, last_name
+FROM actor
+WHERE first_name = 'Joe'
+
+SELECT actor_id, first_name, last_name
+FROM actor
+WHERE LOWER(last_name) LIKE '%gen%;
+
+SELECT actor_id, first_name, last_name
+FROM actor
+WHERE LOWER(last_name) LIKE '%li%;
+ORDER BY last_name, first_name;
+
+SELECT country_id, c.country
+FROM country AS c 
+WHERE country IN ('Afghanistan', 'Bangladesh', and 'China');
+
+ALTER TABLE actor
+ADD COLUMN middle_name VARCHAR(15) AFTER first_name;
+
+ALTER TABLE actor MODIFY middle_name BLOB; # fixme
+
+ALTER TABLE actor DROP COLUMN middle_name;
+
+SELECT last_name, COUNT(*)
+FROM actor 
+GROUP BY last_name;
+
+id | last_name
+1   Wilson
+2   Carson
+3   Wilson
+
+last_name | count 
+Wilson      2
+Carson      1
+
+SELECT last_name, COUNT(*)
+FROM actor 
+GROUP BY last_name
+HAVING COUNT(*) >= 2;
+
+# 4c FIX ME 
+
+# 4d FIX ME 
+
+# 5a
+
+# 6a
+
+SELECT first_name, last_name, 
+FROM staff AS s 
+JOIN address AS a 
+ON a.address_id=s.address_id 
+
+# 6b
+
+SELECT SUM(amount) AS total_amount, first_name, last_name
+FROM staff AS staff
+JOIN payment AS payment
+ON p.staff_id = s.staff_id
+WHERE payment_date < '2005-08-01'
+GROUP BY staff_id;
+
+#6c
+
+SELECT title, first_name, last_name
+FROM film_actor as fa
+INNER JOIN film as f
+ON f.film_id = fa.fild_id
+INNER JOIN actor as a
+ON a.actor_id = fa.actor_id;
+
+SELECT COUNT(*)
+FROM inventory as i
+JOIN film as f
+ON i.film_id = f.film_id
+WHERE title = 'Hunchback Impossible';
+
+# 6e
+
+SELECT SUM(amount) AS total_paid, first_name, last_name
+FROM payment AS p
+ON p.customer_id = c.customer_id
+GROUP BY last_name, first_name
+ORDER BY last_name;
+
+# 7a
+
+SELECT titles
+FROM film as f 
+JOIN language AS l
+ON f.language_id = l.language_id
+WHERE film_id in (SELECT film_id 
+                  FROM film
+                  WHERE title LIKE ('K%'OR title LIKE 'Q'%')
+    AND name = 'English';
+
+# 7b 
+
+SELECT first_name, last_name
+FROM actor
+WHERE actor_id IN (SELECT actor_id
+                   FROM film_actor fa
+                   JOIN film f 
+                   ON fa.film_id = f.film_id
+                   WHERE title = 'Alone Trip');
+
+# 7c
+
+SELECT first_name, last_name
+FROM customer as c 
+JOIN address as a 
+ON c.address_id = a.address_id
+JOIN city as ci 
+ON ci.city_id = a.city_id 
+JOIN country as co 
+ON co.country_id = ci.country_id
+
+
+
+
+
+
+
+
